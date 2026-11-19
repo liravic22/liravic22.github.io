@@ -2956,6 +2956,7 @@
       const items = section.querySelectorAll('li');
       let sectionVisible = 0;
 
+      // 1. Сначала фильтруем все пункты списка внутри года
       items.forEach(item => {
         const text = item.textContent.toLowerCase();
         if (text.includes(query)) {
@@ -2967,13 +2968,28 @@
         }
       });
 
-      // Скрываем весь блок года, если внутри него нет совпадений
+      // 2. Проверяем каждый заголовок месяца (h3.month-title) внутри года
+      const monthTitles = section.querySelectorAll('h3.month-title');
+      monthTitles.forEach(h3 => {
+        const nextList = h3.nextElementSibling; // Берём список <ul>, который идёт сразу после h3
+        if (nextList && nextList.tagName === 'UL') {
+          const listItems = Array.from(nextList.querySelectorAll('li'));
+          // Проверяем, остался ли в этом списке хотя бы один видимый элемент
+          const hasVisibleItems = listItems.some(li => li.style.display !== 'none');
+          
+          h3.style.display = hasVisibleItems ? '' : 'none';
+          nextList.style.display = hasVisibleItems ? '' : 'none';
+        }
+      });
+
+      // 3. Скрываем весь блок года, если внутри него вообще нет совпадений
       section.style.display = sectionVisible > 0 ? '' : 'none';
     });
 
     noResultsMsg.style.display = totalVisible === 0 ? 'block' : 'none';
   });
 </script>
+
 
 </body>
 </html>
