@@ -1,11 +1,222 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Мое портфолио</title>
-  </head>
-  <body>
-    <h1>Привет, это мое первое портфолио!</h1>
-    <p>Здесь будут мои проекты.</p>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Архив мероприятий</title>
+  <style>
+    :root {
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-main: #212529;
+      --text-muted: #6c757d;
+      --accent: #2b5876;
+      --border: #dee2e6;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 1.8rem;
+      color: var(--accent);
+    }
+
+    /* Поле поиска */
+    .search-box {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px 16px;
+      font-size: 1rem;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 20px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-box:focus {
+      border-color: var(--accent);
+    }
+
+    /* Оглавление по годам */
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toc a {
+      text-decoration: none;
+      background: #eef2f5;
+      color: var(--accent);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+
+    .toc a:hover {
+      background: #dce4eb;
+    }
+
+    /* Блоки по годам */
+    .year-section {
+      margin-bottom: 30px;
+    }
+
+    .year-title {
+      font-size: 1.4rem;
+      color: var(--accent);
+      border-bottom: 2px solid #eef2f5;
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+    }
+
+    ul.events-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    ul.events-list li {
+      padding: 8px 0;
+      border-bottom: 1px dashed #eee;
+    }
+
+    ul.events-list li:last-child {
+      border-bottom: none;
+    }
+
+    .event-date {
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-right: 8px;
+    }
+
+    a.event-link {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a.event-link:hover {
+      text-decoration: underline;
+    }
+
+    .no-results {
+      display: none;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Перечень мероприятий</h1>
+
+  <!-- Строка живого поиска -->
+  <input type="text" id="searchInput" class="search-box" placeholder="Поиск по названию, дате или ключевому слову...">
+
+  <!-- Оглавление по годам (якорные ссылки) -->
+  <nav class="toc" id="tocNav">
+    <a href="#year-2001">2001</a>
+    <a href="#year-2002">2002</a>
+    <a href="#year-2003">2003</a>
+  </nav>
+
+  <div id="noResults" class="no-results">Ничего не найдено по вашему запросу</div>
+
+  <!-- Раздел: 2001 год -->
+  <section class="year-section" id="year-2001">
+    <h2 class="year-title">2001 год</h2>
+    <ul class="events-list">
+      <li>
+        <span class="event-date">12.04.2001</span>
+        <a href="#" class="event-link" target="_blank">Название первого мероприятия или архивной записи</a>
+      </li>
+      <li>
+        <span class="event-date">05.09.2001</span>
+        <a href="#" class="event-link" target="_blank">Второе событие в хронологическом порядке</a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Раздел: 2002 год -->
+  <section class="year-section" id="year-2002">
+    <h2 class="year-title">2002 год</h2>
+    <ul class="events-list">
+      <li>
+        <span class="event-date">18.03.2002</span>
+        <a href="#" class="event-link" target="_blank">Пример записи за 2002 год со ссылкой на пост</a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Раздел: 2003 год -->
+  <section class="year-section" id="year-2003">
+    <h2 class="year-title">2003 год</h2>
+    <ul class="events-list">
+      <li>
+        <span class="event-date">22.11.2003</span>
+        <span>Событие без внешней ссылки (просто текстовая строка в списке)</span>
+      </li>
+    </ul>
+  </section>
+</div>
+
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const yearSections = document.querySelectorAll('.year-section');
+  const noResultsMsg = document.getElementById('noResults');
+
+  searchInput.addEventListener('input', function () {
+    const query = this.value.toLowerCase().trim();
+    let totalVisible = 0;
+
+    yearSections.forEach(section => {
+      const items = section.querySelectorAll('li');
+      let sectionVisible = 0;
+
+      items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(query)) {
+          item.style.display = '';
+          sectionVisible++;
+          totalVisible++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      // Скрываем весь блок года, если внутри него нет совпадений
+      section.style.display = sectionVisible > 0 ? '' : 'none';
+    });
+
+    noResultsMsg.style.display = totalVisible === 0 ? 'block' : 'none';
+  });
+</script>
+
+</body>
 </html>
