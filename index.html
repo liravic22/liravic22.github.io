@@ -6,25 +6,39 @@
   <title>Архив мероприятий</title>
   <style>
     :root {
-      --bg-color: #f8f9fa;
-      --card-bg: rgba(255, 255, 255, 0.96); /* Слегка полупрозрачный белый, чтобы фон красиво подыгрывал, но текст читался идеально */
-      --text-main: #212529;
-      --text-muted: #6c757d;
-      --accent: #2b5876;
-      --border: #dee2e6;
+      /* === 1. НАСТРОЙКИ ФОНА СТРАНИЦЫ И КАРТОЧКИ === */
+      --bg-color: #1a1e24;                         /* Базовый цвет фона (виден, если картинка не загрузилась) */
+      --bg-image: url('images/bg.jpg');            /* Путь к фоновой картинке (или none, если нужен только цвет) */
+      --bg-overlay: rgba(0, 0, 0, 0.35);           /* Затемнение поверх фоновой картинки (0 = без затемнения, 0.7 = сильно темнее) */
+      --card-bg: rgba(255, 255, 255, 0.96);        /* Цвет и прозрачность центральной карточки с текстом */
+
+      /* === 2. ЦВЕТА ЗАГОЛОВКОВ ПО УРОВНЯМ === */
+      --h1-color: #1e3c52;                         /* Главный заголовок страницы (h1) */
+      --h2-color: #2b5876;                         /* Заголовки разделов / годов (h2 и .year-title) */
+      --h3-color: #3d6b8c;                         /* Подзаголовки (h3) */
+
+      /* === 3. ЦВЕТА ТЕКСТА СПИСКА, ДАТ И ССЫЛОК === */
+      --list-text-color: #212529;                  /* Основной цвет текста в пунктах списка */
+      --date-color: #6c757d;                       /* Цвет дат в списке */
+      --link-color: #2b5876;                       /* Цвет ссылок в списке */
+      --link-hover-color: #163245;                 /* Цвет ссылок при наведении курсора */
+
+      /* === 4. ДОПОЛНИТЕЛЬНЫЕ ЭЛЕМЕНТЫ === */
+      --accent: #2b5876;                           /* Цвет кнопок оглавления и рамки поиска */
+      --border: #dee2e6;                           /* Цвет разделительных линий */
     }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: var(--bg-color);
-      /* Фоновое изображение на весь экран */
-      background-image: url('images/bg.jpg');
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+      /* Фоновое изображение с регулируемым затемнением */
+      background-image: linear-gradient(var(--bg-overlay), var(--bg-overlay)), var(--bg-image);
+      background-size: cover;                      /* Масштабировать на весь экран без искажений */
+      background-position: center center;          /* Центрировать по горизонтали и вертикали */
+      background-repeat: no-repeat;                /* Не дублировать плиткой */
+      background-attachment: fixed;                /* Фиксировать фон при прокрутке на ПК */
       min-height: 100vh;
-      color: var(--text-main);
+      color: var(--list-text-color);
       line-height: 1.6;
       margin: 0;
       padding: 20px;
@@ -36,26 +50,43 @@
       background: var(--card-bg);
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     }
 
-    /* Шапка с картинкой внутри карточки */
+    /* Шапка с изображением внутри карточки */
     .header-banner {
-      margin: -30px -30px 24px -30px; /* Прижимает картинку вплотную к верхнему и боковым краям карточки */
+      margin: -30px -30px 24px -30px;
       overflow: hidden;
-      border-radius: 10px 10px 0 0; /* Повторяет скругление верхних углов карточки */
+      border-radius: 10px 10px 0 0;
     }
 
     .header-banner img {
       display: block;
       width: 100%;
-      height: auto; /* Автоматически сохраняет пропорции на любом экране */
+      height: auto;
     }
 
+    /* Заголовки по уровням h1 - h3 */
     h1 {
       margin-top: 0;
-      font-size: 1.8rem;
-      color: var(--accent);
+      font-size: 1.85rem;
+      color: var(--h1-color);
+    }
+
+    h2, .year-title {
+      font-size: 1.4rem;
+      color: var(--h2-color);
+      border-bottom: 2px solid #eef2f5;
+      padding-bottom: 6px;
+      margin-top: 0;
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      color: var(--h3-color);
+      margin-top: 18px;
+      margin-bottom: 10px;
     }
 
     /* Поле поиска */
@@ -100,28 +131,22 @@
       background: #dce4eb;
     }
 
-    /* Блоки по годам */
+    /* Блоки по годам и списки */
     .year-section {
       margin-bottom: 30px;
-    }
-
-    .year-title {
-      font-size: 1.4rem;
-      color: var(--accent);
-      border-bottom: 2px solid #eef2f5;
-      padding-bottom: 6px;
-      margin-bottom: 14px;
     }
 
     ul.events-list {
       list-style: none;
       padding-left: 0;
       margin: 0;
+      color: var(--list-text-color);
     }
 
     ul.events-list li {
       padding: 8px 0;
       border-bottom: 1px dashed #eee;
+      color: var(--list-text-color);
     }
 
     ul.events-list li:last-child {
@@ -130,31 +155,32 @@
 
     .event-date {
       font-weight: 600;
-      color: var(--text-muted);
+      color: var(--date-color);
       margin-right: 8px;
     }
 
     a.event-link {
-      color: var(--accent);
+      color: var(--link-color);
       text-decoration: none;
     }
 
     a.event-link:hover {
+      color: var(--link-hover-color);
       text-decoration: underline;
     }
 
     .no-results {
       display: none;
-      color: var(--text-muted);
+      color: var(--date-color);
       text-align: center;
       padding: 20px 0;
     }
 
-    /* Адаптация под смартфоны */
+    /* Адаптация под мобильные экраны */
     @media (max-width: 600px) {
       body {
         padding: 10px;
-        background-attachment: scroll; /* Убирает баг с зумом фона на iPhone/Android */
+        background-attachment: scroll;
       }
 
       .container {
@@ -167,6 +193,14 @@
 
       h1 {
         font-size: 1.45rem;
+      }
+
+      h2, .year-title {
+        font-size: 1.25rem;
+      }
+
+      h3 {
+        font-size: 1.05rem;
       }
     }
   </style>
