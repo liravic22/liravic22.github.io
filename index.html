@@ -7,36 +7,39 @@
   <style>
     :root {
       /* === 1. НАСТРОЙКИ ФОНА СТРАНИЦЫ И КАРТОЧКИ === */
-      --bg-color: #122311;                         /* Базовый цвет фона (виден, если картинка не загрузилась) */
-      --bg-image: url('images/bg.jpg');            /* Путь к фоновой картинке (или none, если нужен только цвет) */
-      --bg-overlay: rgba(0, 0, 0, 0);           /* Затемнение поверх фоновой картинки (0 = без затемнения, 0.7 = сильно темнее) */
-      --card-bg: rgba(18, 35, 17, 1);        /* Цвет и прозрачность центральной карточки с текстом */
+      --bg-color: #0e1a10;                         /* Базовый цвет фона */
+      --bg-image: url('images/bg.jpg');            /* Путь к фоновой картинке */
+      --bg-overlay: rgba(0, 0, 0, 0);           /* Затемнение фоновой картинки */
+      --card-bg: rgba(14, 26, 16, 1);        /* Фон центральной карточки */
 
       /* === 2. ЦВЕТА ЗАГОЛОВКОВ ПО УРОВНЯМ === */
-      --h1-color: #ffffff;                         /* Главный заголовок страницы (h1) */
-      --h2-color: #febb2f;                         /* Заголовки разделов / годов (h2 и .year-title) */
-      --h3-color: #ffffff;                         /* Подзаголовки (h3) */
+      --h1-color: #ffffff;                         /* Главный заголовок (h1) */
+      --h2-color: #fbc330;                         /* Заголовки разделов / годов (h2) */
+      --h3-color: #fbc330;                         /* Подзаголовки (h3) */
 
-      /* === 3. ЦВЕТА ТЕКСТА СПИСКА, ДАТ И ССЫЛОК === */
-      --list-text-color: #ffffff;                  /* Основной цвет текста в пунктах списка */
-      --date-color: #ffffff;                       /* Цвет дат в списке */
-      --link-color: #ffffff;                       /* Цвет ссылок в списке */
-      --link-hover-color: #3e9dff;                 /* Цвет ссылок при наведении курсора */
+      /* === 3. ЦВЕТА ТЕКСТА СПИСКА, ДАТ, ССЫЛОК И РАЗДЕЛИТЕЛЕЙ === */
+      --list-text-color: #ffffff;                  /* Основной текст в списке */
+      --date-color: #ffffff;                       /* Цвет дат */
+      --link-color: #ffffff;                       /* Цвет ссылок */
+      --link-hover-color: #163245;                 /* Цвет ссылок при наведении */
+      --list-divider-color: transparent; /* Цвет пунктирной линии между строками (или transparent, чтобы убрать) rgba(128, 128, 128, 0.25)*/
 
-      /* === 4. ДОПОЛНИТЕЛЬНЫЕ ЭЛЕМЕНТЫ === */
-      --accent: #febb2f;                           /* Цвет кнопок оглавления и рамки поиска */
-      --border: #122311;                           /* Цвет разделительных линий */
+      /* === 4. КНОПКИ ОГЛАВЛЕНИЯ И ПОЛЕ ПОИСКА === */
+      --btn-bg: #ffffff;                           /* Фон кнопок оглавления по годам */
+      --btn-hover-bg: #fbc330;                     /* Фон кнопок при наведении */
+      --btn-text-color: #000000;                   /* Цвет текста на кнопках */
+      --accent: #000000;                           /* Цвет рамки поиска при клике */
+      --border: rgba(128, 128, 128, 0.3);          /* Цвет сплошных разделительных линий */
     }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: var(--bg-color);
-      /* Фоновое изображение с регулируемым затемнением */
       background-image: linear-gradient(var(--bg-overlay), var(--bg-overlay)), var(--bg-image);
-      background-size: cover;                      /* Масштабировать на весь экран без искажений */
-      background-position: center center;          /* Центрировать по горизонтали и вертикали */
-      background-repeat: no-repeat;                /* Не дублировать плиткой */
-      background-attachment: fixed;                /* Фиксировать фон при прокрутке на ПК */
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
       min-height: 100vh;
       color: var(--list-text-color);
       line-height: 1.6;
@@ -76,7 +79,7 @@
     h2, .year-title {
       font-size: 1.4rem;
       color: var(--h2-color);
-      border-bottom: 2px solid #eef2f5;
+      border-bottom: 2px solid var(--border);
       padding-bottom: 6px;
       margin-top: 0;
       margin-bottom: 14px;
@@ -95,6 +98,8 @@
       box-sizing: border-box;
       padding: 12px 16px;
       font-size: 1rem;
+      background: transparent;
+      color: var(--list-text-color);
       border: 2px solid var(--border);
       border-radius: 8px;
       margin-bottom: 20px;
@@ -106,7 +111,7 @@
       border-color: var(--accent);
     }
 
-    /* Оглавление по годам */
+    /* Оглавление по годам (кнопки) */
     .toc {
       display: flex;
       flex-wrap: wrap;
@@ -118,8 +123,8 @@
 
     .toc a {
       text-decoration: none;
-      background: #eef2f5;
-      color: var(--accent);
+      background: var(--btn-bg);
+      color: var(--btn-text-color);
       padding: 5px 12px;
       border-radius: 6px;
       font-weight: 500;
@@ -128,7 +133,7 @@
     }
 
     .toc a:hover {
-      background: #dce4eb;
+      background: var(--btn-hover-bg);
     }
 
     /* Блоки по годам и списки */
@@ -145,7 +150,7 @@
 
     ul.events-list li {
       padding: 8px 0;
-      border-bottom: 1px dashed #eee;
+      border-bottom: 1px dashed var(--list-divider-color);
       color: var(--list-text-color);
     }
 
@@ -205,6 +210,7 @@
     }
   </style>
 </head>
+
 <body>
 <div class="container">
 <div class="header-banner">
