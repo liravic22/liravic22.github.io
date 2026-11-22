@@ -70,9 +70,20 @@
     }
 
     /* Заголовки по уровням h1 - h3 */
+@font-face {
+  font-family: 'Izhitsa';
+  src: url('/fonts/Izhitsa.woff2') format('woff2'),
+       url('/fonts/Izhitsa.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+    
     h1 {
+      font-family: 'Izhitsa', Georgia, serif;
+      font-size: clamp(32px, 5vw, 64px); /* Адаптивный размер для мобильных и ПК       font-size: 1.85rem; */
+  line-height: 1.15; /* Чуть плотнее, чтобы выносные элементы не цепляли строки */
+  letter-spacing: 0.02em; /* Лёгкая разрядка для лучшей читаемости вязью */
       margin-top: 0;
-      font-size: 1.85rem;
       color: var(--h1-color);
     }
 
